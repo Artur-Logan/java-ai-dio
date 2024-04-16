@@ -4,15 +4,20 @@ import com.arturlogan.javaaidio.entities.Usuario;
 import com.arturlogan.javaaidio.repositories.UsuarioRepository;
 import com.arturlogan.javaaidio.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
 @Service
-@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    @Autowired
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Override
     public Usuario findById(Long id) {
