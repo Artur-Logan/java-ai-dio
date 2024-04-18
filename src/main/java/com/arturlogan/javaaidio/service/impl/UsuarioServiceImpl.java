@@ -1,15 +1,18 @@
 package com.arturlogan.javaaidio.service.impl;
 
 import com.arturlogan.javaaidio.entities.Usuario;
+import com.arturlogan.javaaidio.exceptions.UsuarioJaCadastradoException;
 import com.arturlogan.javaaidio.repositories.UsuarioRepository;
 import com.arturlogan.javaaidio.service.UsuarioService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Component
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
@@ -25,10 +28,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario create(Usuario usuarioCriado) {
-        if (usuarioRepository.existeNumeroDaConta(usuarioCriado.getConta().getNumero())){
-            throw new IllegalArgumentException("O número dessa conta já existe!");
+    public Usuario create(Usuario usuario) {
+        if (usuarioRepository.existeNumeroDaConta(usuario.getConta().getNumero())){
+            throw new UsuarioJaCadastradoException("O número dessa conta já existe!");
         }
-        return usuarioRepository.save(usuarioCriado);
+        usuarioRepository.save(usuario);
+
+        return usuario;
+    }
+
+    @Override
+    public List<Usuario> listar() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarios;
     }
 }

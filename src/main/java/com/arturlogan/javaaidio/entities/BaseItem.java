@@ -6,8 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
-@MappedSuperclass
 @Data
+@MappedSuperclass
 public abstract class BaseItem {
     public void setId(Long id) {
         this.id = id;

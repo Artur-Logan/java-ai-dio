@@ -1,6 +1,7 @@
 package com.arturlogan.javaaidio.controllers;
 
 import com.arturlogan.javaaidio.entities.Usuario;
+import com.arturlogan.javaaidio.entities.dto.request.UsuarioRequest;
 import com.arturlogan.javaaidio.service.UsuarioService;
 import org.apache.catalina.Server;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -36,4 +38,12 @@ public class UsuarioController {
 
         return ResponseEntity.created(localizacao).body(usuarioCriado);
     }
+
+    @GetMapping()
+    public ResponseEntity<List<Usuario>> listar(){
+
+        List<Usuario> usuarioList = usuarioService.listar();
+        return ResponseEntity.ok(usuarioList);
+    }
+
 }

@@ -8,6 +8,22 @@ import java.math.BigDecimal;
 @Data
 @Entity(name = "tb_conta")
 public class Conta {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
+    private String numero;
+
+    private String agencia;
+
+    @Column(precision = 13, scale = 2)
+    private BigDecimal saldo;
+
+    @Column(name = "limite_adicional", precision = 13, scale = 2)
+    private BigDecimal limite;
+
     public Long getId() {
         return id;
     }
@@ -47,19 +63,4 @@ public class Conta {
     public void setLimite(BigDecimal limite) {
         this.limite = limite;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true)
-    private String numero;
-
-    private String agencia;
-
-    @Column(precision = 13, scale = 2)
-    private BigDecimal saldo;
-
-    @Column(name = "limite_adicional", precision = 13, scale = 2)
-    private BigDecimal limite;
 }
